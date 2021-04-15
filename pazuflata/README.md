@@ -1,16 +1,9 @@
 # pazuflata
+Use pazusoba in Flutter 
 
-A new Flutter project.
+## Async
+- https://github.com/dart-lang/sdk/tree/master/samples/ffi/async
+- https://github.com/dart-lang/sdk/issues/37022
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The library is loaded successfully but how to call it async? It is definitely using the main thread. 
+The main issue is that pazusoba uses all threads to boost the performance so the lag is inevitable I think. 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -12,23 +13,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isCalculating = false;
+
   @override
   void initState() {
     super.initState();
-
-    final libary = DynamicLibrary.open('pazusoba.so');
-    final Pazusoba pazusoba = libary
-        .lookup<NativeFunction<pazusoba_func>>('pazusoba')
-        .asFunction<Pazusoba>();
-    final Pointer<Pointer<Int8>> list = malloc();
-    pazusoba(0, list);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Hello'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text(isCalculating ? 'Calculating...' : 'Call pazusoba'),
+              onPressed: () {
+                setState(() {
+                  isCalculating = true;
+                });
+                Timer(const Duration(milliseconds: 100), () {
+                  final libary =
+                      DynamicLibrary.open('assets/library/pazusoba.so');
+                  final Pazusoba pazusoba = libary
+                      .lookup<NativeFunction<pazusoba_func>>('pazusoba')
+                      .asFunction<Pazusoba>();
+                  final Pointer<Pointer<Int8>> list = malloc();
+                  pazusoba(0, list);
+                  setState(() {
+                    isCalculating = false;
+                  });
+                });
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ),
+          ],
+        ),
       ),
     );
   }

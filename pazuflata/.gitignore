@@ -9,6 +9,7 @@
 .history
 .svn/
 web/
+path.pazusoba
 
 # IntelliJ related
 *.iml
