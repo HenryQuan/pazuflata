@@ -1,13 +1,9 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ffi/ffi.dart';
+import 'package:pazuflata/core/pazusoba.dart';
 import 'package:pazuflata/helpers/loading_overlay.dart';
-
-typedef pazusoba_func = Void Function(Int32, Pointer<Pointer<Int8>>);
-typedef Pazusoba = void Function(int, Pointer<Pointer<Int8>>);
 
 class HomePage extends StatefulWidget {
   @override
@@ -78,23 +74,13 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 LoadingOverlay.display(context);
                 Timer(const Duration(milliseconds: 200), () {
-                  final libary =
-                      DynamicLibrary.open('assets/library/pazusoba.so');
-                  final Pazusoba pazusoba = libary
-                      .lookup<NativeFunction<pazusoba_func>>('pazusoba')
-                      .asFunction<Pazusoba>();
-                  final Pointer<Pointer<Int8>> list = malloc();
-                  pazusoba(0, list);
+                  Pazusoba.instance.calculate();
 
                   Timer(const Duration(milliseconds: 200), () {
                     LoadingOverlay.hide(context);
                   });
                 });
               },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircularProgressIndicator(),
             ),
           ],
         ),
