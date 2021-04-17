@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'PAZU FLATA',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        scaffoldBackgroundColor: Colors.brown,
       ),
       home: HomePage(),
     );
