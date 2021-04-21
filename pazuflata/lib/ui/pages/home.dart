@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ffi/ffi.dart';
@@ -16,7 +17,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    final libary = DynamicLibrary.process();
+    final libary = DynamicLibrary.open(
+        Platform.script.resolve('pazusoba.so').toFilePath());
     final Pazusoba pazusoba = libary
         .lookup<NativeFunction<pazusoba_func>>('pazusoba')
         .asFunction<Pazusoba>();
