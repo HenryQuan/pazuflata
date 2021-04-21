@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    final libary = DynamicLibrary.open('pazusoba.so');
+    final libary = DynamicLibrary.process();
     final Pazusoba pazusoba = libary
         .lookup<NativeFunction<pazusoba_func>>('pazusoba')
         .asFunction<Pazusoba>();
